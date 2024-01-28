@@ -1,5 +1,5 @@
 
-  mapboxgl.accessToken = 'ADD YOUR TOKEN HERE'; // Still figuring out the secure way to handle this
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYndlaW5zdGVpbiIsImEiOiJjbHJ3aWV6OXIxM3llMmpsZXNjZjNocDBxIn0.aNJNRY4h_3l6IqyrQirH4A'; // Still figuring out the secure way to handle this
   
   const mapdata = document.querySelector('#map');
   let rasterTileset = mapdata.dataset.rastertileset;
