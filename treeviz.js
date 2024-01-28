@@ -6,6 +6,8 @@
   let vectorTileset = mapdata.dataset.vectortileset;
   let rasterTilesetURL = 'mapbox://bweinstein.' + rasterTileset;
   let vectorTilesetURL = 'mapbox://bweinstein.' + vectorTileset;
+  let speciesIDs = mapdata.dataset.speciesids;
+  let speciesList = speciesIDs.split(",");
   
   const map = new mapboxgl.Map({
     container: 'map', // container id
@@ -15,15 +17,14 @@
   });
 
   // Define your categories and corresponding colors
-  var categories = ['QUDO', 'QUWI2', 'PISA2']; // Replace with your categories
-  var num_categories = categories.length
-  console.log(num_categories)
-  var colors = chroma.scale('Spectral').colors(num_categories)
+  var num_species = speciesList.length
+  console.log(num_species)
+  var colors = chroma.scale('Spectral').colors(num_species)
 
   // Create the match expression for color boxes by species
   var speciesColors = ['match', ['get', 'dom_taxa']]; // Replace 'property-name' with the name of your property
-  categories.forEach(function(category, i) {
-      speciesColors.push(category, colors[i]);
+  speciesList.forEach(function(species, i) {
+      speciesColors.push(species, colors[i]);
   });
   speciesColors.push('#000'); // Default color
 
