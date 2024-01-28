@@ -1,5 +1,12 @@
 
   mapboxgl.accessToken = 'ADD YOUR TOKEN HERE'; // Still figuring out the secure way to handle this
+  
+  const mapdata = document.querySelector('#map');
+  let rasterTileset = mapdata.dataset.rastertileset;
+  let vectorTileset = mapdata.dataset.vectortileset;
+  let rasterTilesetURL = 'mapbox://bweinstein.' + rasterTileset;
+  let vectorTilesetURL = 'mapbox://bweinstein.' + vectorTileset;
+  
   const map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/mapbox/light-v11', // stylesheet location
@@ -23,7 +30,7 @@
   map.on('load', () => {
     map.addSource('raster-source', { // A unique id for the source
         type: 'raster',
-        url: 'mapbox://bweinstein.SJER_2021_RGB_merged', // The Mapbox id for the tileset
+        url: rasterTilesetURL, // The Mapbox id for the tileset
         tileSize: 256
     });
 
@@ -43,7 +50,7 @@
       type: 'fill',
       source: {
         type: 'vector',
-        url: 'mapbox://bweinstein.1s0v0srr'
+        url: vectorTilesetURL
       },
       'source-layer': 'SJER_2021',
       'paint': {
@@ -56,7 +63,7 @@
       type: 'line',
       source: {
         type: 'vector',
-        url: 'mapbox://bweinstein.1s0v0srr'
+        url: vectorTilesetURL
       },
       'source-layer': 'SJER_2021',
       'paint': {
