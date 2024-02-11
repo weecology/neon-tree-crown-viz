@@ -30,7 +30,7 @@ for site in $(ls *.zip | grep -v 'crops.zip' | sed 's/.zip//g'); do
         ogr2ogr -progress -t_srs EPSG:3857 "$site"_webmercator.geojson $site.geojson
     
         echo "Creatin mbtiles file: " $site
-        tippecanoe -zg --projection=EPSG:3857 -o $site.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping "$site"_webmercator.geojson
+        tippecanoe -zg --projection=EPSG:3857 -o "$site"_trees.mbtiles --drop-densest-as-needed --extend-zooms-if-still-dropping "$site"_webmercator.geojson
     
         echo "Deleting intermediate files: " $site
         rm -rf $site
