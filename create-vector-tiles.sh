@@ -36,5 +36,7 @@ for site in $(ls *.zip | grep -v 'crops.zip' | sed 's/.zip//g'); do
         rm -rf $site
         rm $site.geojson
         rm "$site"_webmercator.geojson
+
+        python upload_mapbox.py "$site"_trees.mbtiles
     fi
 done
