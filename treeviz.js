@@ -1,8 +1,7 @@
 
   mapboxgl.accessToken = 'pk.eyJ1IjoiYndlaW5zdGVpbiIsImEiOiJjbHJ3aWV6OXIxM3llMmpsZXNjZjNocDBxIn0.aNJNRY4h_3l6IqyrQirH4A'; // Still figuring out the secure way to handle this
-  
-  const mapdata = document.querySelector('#map');
 
+  const mapdata = document.querySelector('#map');
   function makeMap(selectedSite, selectedYear, selectedLocation, selectedSpecies) {
         // Use the new value
         let rasterTileset = selectedSite + '_' + selectedYear + '_rgb';
@@ -102,11 +101,15 @@
           }
       
           const dom_score = e.features[0].properties.dom_score;
+
+          // Only display genus and species in the popup (many NEON names have additional details)
           const sci_name = e.features[0].properties.sci_name;
+          const sci_name_split = sci_name.split(" ");
+          const sci_name_short = sci_name_split.slice(0, 2).join(" ");
       
           new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML(sci_name + "<br>" + "Score: " + dom_score + "<br>" + "Lat: " + coordinates[1].toFixed(5) + " " + "Long: " + coordinates[0].toFixed(5))
+            .setHTML(sci_name_short + "<br>" + "Score: " + dom_score + "<br>" + "Lat: " + coordinates[1].toFixed(5) + " " + "Long: " + coordinates[0].toFixed(5))
             .addTo(map);
       
           });
@@ -120,7 +123,7 @@
         // Change it back to a pointer when it leaves.
         map.on('mouseleave', 'trees', () => {
         map.getCanvas().style.cursor = '';
-        });    
+        });
   }
 
   let siteYearDict = {
