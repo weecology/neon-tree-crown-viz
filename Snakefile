@@ -3,11 +3,11 @@ YEARS = [2021,2022,2021,2021,2022,2020,2020,2022,2021,2021,2020,2021,2022,2022,2
 
 rule all:
     input:
-        expand("/blue/ewhite/neon-mbtiles/{site}_{year}_rgb.mbtiles", zip(SITES, YEARS))
+        expand("/blue/ewhite/neon-mbtiles/{site}_{year}_rgb.mbtiles", zip, site=SITES, year=YEARS)
 
 rule merge:
     output:
-        merged = "/blue/ewhite/neon-mbtiles/{site}_rgb_merged.tif"
+        merged = "/blue/ewhite/neon-mbtiles/{site}_{year}_rgb_merged.tif"
     resources:
         gpu = 1
     shell:
@@ -19,7 +19,7 @@ rule reproject:
     input:
         merged = rules.merge.output.merged
     output:
-        reprojected = "/blue/ewhite/neon-mbtiles/{site}_rgb_webmercator.tif"
+        reprojected = "/blue/ewhite/neon-mbtiles/{site}_{year}_rgb_webmercator.tif"
     resources:
         gpu = 1
     shell:
@@ -31,10 +31,8 @@ rule create_mbtiles:
     input:
         reprojected = rules.reproject.output.reprojected
     output:
-        mbtiles = "/blue/ewhite/neon-mbtiles/{site}_rgb.mbtiles"
-    resources:
-        cpus = 14
+        mbtiles = "/blue/ewhite/neon-mbtiles/{site}_{year}_rgb.mbtiles"
     shell:
         """
-        rio -v mbtiles {input.reprojected} --rgba --format 'WEBP' --progress-bar -o {output.mbtiles} -j 10 --zoom-levels 12..20
+        rio mbtiles {input.reprojected} --resampling 'average' --rgba --format 'WEBP' --progress-bar -o {output.mbtiles} --zoom-levels 12..20
         """
