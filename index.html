@@ -15,15 +15,19 @@
 
       #map {
         position: absolute;
-        top: 0;
+        top: 50px;
         bottom: 0;
         width: 100%;
       }
     </style>
   </head>
   <body>
+    <select id="site-select">
+      <option value="SJER">SJER</option>
+      <option value="OSBS">OSBS</option>
+    </select>
 
-  <div id='map' data-rastertileset="SJER_2021_RGB_merged" data-vectortileset="1s0v0srr" data-speciesids="QUDO,QUWI2,PISA2"></div>
+  <div id='map'></div>
   <script src="treeviz.js"></script>
 
   </body>
