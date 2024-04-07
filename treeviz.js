@@ -80,27 +80,9 @@
         });
       
         map.on('click', 'trees', (e) => {
-          // Check if features exist
-          if (!e.features || e.features.length === 0) {
-              console.log("No features found");
-              return;
-          }
-      
-          // Check if geometry and coordinates exist
-          if (!e.features[0].geometry || !e.features[0].geometry.coordinates) {
-              console.log("No coordinates found");
-              return;
-          }
-          // Copy coordinates array.
+          // Get the ensemble score and coordinates
+          const ens_score = e.features[0].properties.ens_score;
           const coordinates = e.features[0].geometry.coordinates[0][0].slice();
-      
-          // Check if properties and description exist
-          if (!e.features[0].properties || !e.features[0].properties.sci_name) {
-              console.log("No sci_name found");
-              return;
-          }
-      
-          const dom_score = e.features[0].properties.dom_score;
 
           // Only display genus and species in the popup (many NEON names have additional details)
           const sci_name = e.features[0].properties.sci_name;
@@ -109,7 +91,7 @@
       
           new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML(sci_name_short + "<br>" + "Score: " + dom_score + "<br>" + "Lat: " + coordinates[1].toFixed(5) + " " + "Long: " + coordinates[0].toFixed(5))
+            .setHTML(sci_name_short + "<br>" + "Score: " + ens_score + "<br>" + "Lat: " + coordinates[1].toFixed(5) + " " + "Long: " + coordinates[0].toFixed(5))
             .addTo(map);
       
           });
