@@ -1,6 +1,6 @@
 
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYndlaW5zdGVpbiIsImEiOiJjbHJ3aWV6OXIxM3llMmpsZXNjZjNocDBxIn0.aNJNRY4h_3l6IqyrQirH4A'; // Still figuring out the secure way to handle this
-
+//  mapboxgl.accessToken = 'pk.eyJ1IjoiYndlaW5zdGVpbiIsImEiOiJjbHJ3aWV6OXIxM3llMmpsZXNjZjNocDBxIn0.aNJNRY4h_3l6IqyrQirH4A'; // Still figuring out the secure way to handle this
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYndlaW5zdGVpbiIsImEiOiJjbHVwa2h2cmsyYzEyMmtvMWl5cWUwZXBoIn0.S-7UOfiEv9WT0PqdDuR0mA'
   const mapdata = document.querySelector('#map');
   function makeMap(selectedSite, selectedYear, selectedLocation, selectedSpecies) {
         // Use the new value
@@ -97,14 +97,14 @@
           });
         });
       
-          // Change the cursor to a pointer when the mouse is over the places layer.
+        // Change the cursor to a pointer when the mouse is over a tree
         map.on('mouseenter', 'trees', () => {
-        map.getCanvas().style.cursor = 'pointer';
+          map.getCanvas().style.cursor = 'pointer';
         });
         
-        // Change it back to a pointer when it leaves.
+        // Change it back to a pointer when it leaves
         map.on('mouseleave', 'trees', () => {
-        map.getCanvas().style.cursor = '';
+          map.getCanvas().style.cursor = '';
         });
   }
 
@@ -131,7 +131,7 @@
     "TREE": "2022",
     "UKFS": "2020",
     "UNDE": "2020",
-    "WREF": "2022",
+    "WREF": "2021",
     "YELL": "2020",
   }
 
